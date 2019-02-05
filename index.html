@@ -66,6 +66,14 @@ background-color: darkgrey;
 
               var bl =  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
               mymap.addLayer(bl);
+
+              var zocalomarker = L.marker([19.43278,-99.13333]);
+              zocalomarker.addTo(mymap);
+              zocalomarker.bindPopup("<h3 class = 'text-center'> Zocalo </h3>  <a href = 'https://en.wikipedia.org/wiki/Zócalo' target = 'blank'> <img src='Images/zocalo.jpg' width = '200px'  </img> </a> ");
+
+
+
+
           </script>
 
 
