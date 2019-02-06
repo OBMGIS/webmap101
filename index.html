@@ -21,6 +21,8 @@
   integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
   crossorigin=""></script>
 
+  <!-- jQuery library -->
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <style>
@@ -53,6 +55,7 @@ background-color: darkgrey;
           </div>
           <div id="side_panel" class="col-md-3">
             <h1 class="text-center"> attractions</h1>
+            <button id="zoomzocalo" class="form-control btn-primary">Zocalo</button>
           </div>
           <div id="mapdiv" class="col-md-9"></div>
           <div id="footer" class="col-md-12">
@@ -71,8 +74,15 @@ background-color: darkgrey;
               zocalomarker.addTo(mymap);
               zocalomarker.bindPopup("<h3 class = 'text-center'> Zocalo </h3>  <a href = 'https://en.wikipedia.org/wiki/Zócalo' target = 'blank'> <img src='Images/zocalo.jpg' width = '200px'  </img> </a> ");
 
+//Event Handlers
+              $("#zoomzocalo").click(function(){
+                mymap.setView([19.43278,-99.13333],17);
+              });
 
-
+              mymap.on('mousemove', function(e) {
+var str = "Latitude:"+e.latlng.lat.toFixed(5)+" Longitude:" + e.latlng.lng.toFixed(5)+"Zoom Level: " +mymap.getZoom() ;
+                $('#map_coords').html(str);
+              });
 
           </script>
 
