@@ -7,8 +7,8 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-
+<!-- ajax plugin -->
+<script src="webmap101/leaflet.ajax.js"></script>
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -83,6 +83,22 @@ background-color: darkgrey;
 var str = "Latitude:"+e.latlng.lat.toFixed(5)+" Longitude:" + e.latlng.lng.toFixed(5)+"Zoom Level: " +mymap.getZoom() ;
                 $('#map_coords').html(str);
               });
+//
+
+var geojsonLayer = new L.GeoJSON.AJAX('attractions.geojson', {pointToLayer:
+                  function(feature, latlng) {
+                  var str = "<h4>"+feature.properties.name+"</h4><hr>";
+                  str += "<a href=' " + feature.properties.web+ " ' target = 'blank'";
+                  str += "<img src='img/"+feature.properties.image+" ' width='200px'";
+                  str += "</a>";
+                  return L.marker(latlng).bindPopup(str);
+
+
+                }});
+                geojsonLayer.addTo(mymap);
+
+
+
 
           </script>
 
