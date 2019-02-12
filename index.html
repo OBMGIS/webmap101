@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
 <!-- ajax plugin -->
-<script src="webmap101/leaflet.ajax.js"></script>
+<script src="leaflet.ajax.js"></script>
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -83,8 +83,9 @@ background-color: darkgrey;
 var str = "Latitude:"+e.latlng.lat.toFixed(5)+" Longitude:" + e.latlng.lng.toFixed(5)+"Zoom Level: " +mymap.getZoom() ;
                 $('#map_coords').html(str);
               });
-//
-
+//   http://localhost/webmap101/index.html
+//guarda la pagina en htdocs de xamp y con ese linka arriba abre, pero no abre el geojson yet
+//miraver como lo tiene organizado en el video y emulalo y funciona
 var geojsonLayer = new L.GeoJSON.AJAX('attractions.geojson', {pointToLayer:
                   function(feature, latlng) {
                   var str = "<h4>"+feature.properties.name+"</h4><hr>";
