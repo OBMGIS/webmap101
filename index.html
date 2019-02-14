@@ -7,12 +7,16 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-<!-- ajax plugin -->
-<script src="leaflet.ajax.js"></script>
+
+<!-- jQuery library -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
+
+<!-- Latest leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
   crossorigin=""/>
@@ -21,9 +25,8 @@
   integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
   crossorigin=""></script>
 
-  <!-- jQuery library -->
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- ajax plugin MUST BE AFTER LEAFLET  -->
+  <script src="leaflet.ajax.min.js" type="text/javascript" ></script>
 
 <style>
   #header {
@@ -86,7 +89,11 @@ var str = "Latitude:"+e.latlng.lat.toFixed(5)+" Longitude:" + e.latlng.lng.toFix
 //   http://localhost/webmap101/index.html
 //guarda la pagina en htdocs de xamp y con ese linka arriba abre, pero no abre el geojson yet
 //miraver como lo tiene organizado en el video y emulalo y funciona
-var geojsonLayer = new L.GeoJSON.AJAX('attractions.geojson', {pointToLayer:
+
+
+
+
+            var geojsonLayer = new L.GeoJSON.AJAX('attractions.geojson', {pointToLayer:
                   function(feature, latlng) {
                   var str = "<h4>"+feature.properties.name+"</h4><hr>";
                   str += "<a href=' " + feature.properties.web+ " ' target = 'blank'";
@@ -95,7 +102,6 @@ var geojsonLayer = new L.GeoJSON.AJAX('attractions.geojson', {pointToLayer:
                   return L.marker(latlng).bindPopup(str);
                 }});
                 geojsonLayer.addTo(mymap);
-
 
 
 
