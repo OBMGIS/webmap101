@@ -96,7 +96,7 @@ background-color: darkgrey;
 //botones a la isquierda para cada feature
 var geojsonLayer = new L.GeoJSON.AJAX('attractions.geojson', {pointToLayer:function(feature, latlng) {
       var str = "<button id = 'zoomTo"+feature.properties.name.replace(/ /g,'');
-      str += "' class= 'form-control btn btn-primary attraction'>";
+      str += "' class= 'form-control btn btn-primary attractions'>";
       str += feature.properties.name+"</button>";
       $("#side_panel").append(str);
 
