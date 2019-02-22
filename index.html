@@ -4,17 +4,6 @@
           <meta charset="utf-8">
           <title>Webmap101</title>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-
-<!-- jQuery library -->
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
 
 <!-- Latest leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
@@ -27,6 +16,21 @@
 
   <!-- ajax plugin MUST BE AFTER LEAFLET  -->
   <script src="leaflet.ajax.min.js" type="text/javascript" ></script>
+
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+
+  <!-- jQuery library -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 
 <style>
   #header {
@@ -48,6 +52,10 @@ background-color:beige;
 height: 75px
 background-color: darkgrey;
 }
+
+.attractions{
+  margin-bottom: 5px;
+}
   </style>
 
         </head>
@@ -58,7 +66,7 @@ background-color: darkgrey;
           </div>
           <div id="side_panel" class="col-md-3">
             <h1 class="text-center"> attractions</h1>
-            <button id="zoomzocalo" class="form-control btn-primary">Zocalo</button>
+        <!--  <button id="zoomzocalo" class="form-control btn-primary">Zocalo</button> -->
           </div>
           <div id="mapdiv" class="col-md-9"></div>
           <div id="footer" class="col-md-12">
@@ -67,6 +75,7 @@ background-color: darkgrey;
           </div>
 
           <script>
+
               var mymap = L.map('mapdiv')
                 mymap.setView([19.4,-99.1],11);
 
@@ -78,34 +87,68 @@ background-color: darkgrey;
             //  zocalomarker.bindPopup("<h3 class = 'text-center'> Zocalo </h3>  <a href = 'https://en.wikipedia.org/wiki/Zócalo' target = 'blank'> <img src='Images/zocalo.jpg' width = '200px'  </img> </a> ");
 
 //Event Handlers
-              $("#zoomzocalo").click(function(){
-                mymap.setView([19.43278,-99.13333],17);
-              });
-
-              mymap.on('mousemove', function(e) {
-var str = "Latitude:"+e.latlng.lat.toFixed(5)+" Longitude:" + e.latlng.lng.toFixed(5)+"Zoom Level: " +mymap.getZoom() ;
-                $('#map_coords').html(str);
-              });
-//   http://localhost/webmap101/index.html
-//guarda la pagina en htdocs de xamp y con ese linka arriba abre, pero no abre el geojson yet
-//miraver como lo tiene organizado en el video y emulalo y funciona
+          //    $("#zoomzocalo").click(function(){
+            //    mymap.setView([19.43278,-99.13333],17);
+              //});
 
 
 
-
-            var geojsonLayer = new L.GeoJSON.AJAX('attractions.geojson', {pointToLayer:
-                  function(feature, latlng) {
-                  var str = "<h4>"+feature.properties.name+"</h4><hr>";
-                  str += "<a href=' " + feature.properties.web+ " ' target = 'blank'";
-                  str += "<img src='img/"+feature.properties.image+" ' width='200px'";
-                  str += "</a>";
-                  return L.marker(latlng).bindPopup(str);
-                }});
-                geojsonLayer.addTo(mymap);
+//botones a la isquierda para cada feature
+var geojsonLayer = new L.GeoJSON.AJAX('attractions.geojson', {pointToLayer:function(feature, latlng) {
+      var str = "<button id = 'zoomTo"+feature.properties.name.replace(/ /g,'');
+      str += "' class= 'form-control btn btn-primary attraction'>";
+      str += feature.properties.name+"</button>";
+      $("#side_panel").append(str);
 
 
+//does not zoom to each feature when clicked
 
-          </script>
+             $("#zoomTo"+feature.properties.name.replace(/ /g, '')).click(function(){
+                 mymap.setView([latlng.lat, latlng.lng], 17);
+             });
+
+
+
+      //pointtolayer read geojson and make them have link a webpage y tituto y foto (abajo)
+
+      var str = "<h4>"+feature.properties.name+"</h4><hr>";
+          str += "<a href=' " + feature.properties.web+ " ' target = 'blank'";
+          str += "<img src='img/"+feature.properties.image+" ' width='200px'";
+          str += "</a>";
+          return L.marker(latlng).bindPopup(str);
+          }});
+          geojsonLayer.addTo(mymap);
+
+
+
+
+          mymap.on('mousemove', function(e) {
+          var str = "Latitude:"+e.latlng.lat.toFixed(5)+" Longitude:" + e.latlng.lng.toFixed(5)+"Zoom Level : " +mymap.getZoom() ;
+          $('#map_coords').html(str);
+          });
+
+//pointtolayer read geojson and make them have link a webpage y tituto y foto (abajo)
+
+
+                                    //http://localhost/webmap101/index.html
+                                    ///guarda la pagina en htdocs de xamp y con ese linka arriba abre, pero no abre el geojson yet
+                                    ///miraver como lo tiene organizado en el video y emulalo y funciona
+
+
+
+                                  //                var geojsonLayer = new L.GeoJSON.AJAX('attractions.geojson', {pointToLayer:
+                                    //                    function(feature, latlng) {
+                                      //                  var str = "<h4>"+feature.properties.name+"</h4><hr>";
+                                        //                str += "<a href=' " + feature.properties.web+ " ' target = 'blank'";
+                                          //              str += "<img src='img/"+feature.properties.image+" ' width='200px'";
+                                            //            str += "</a>";
+                                              //          return L.marker(latlng).bindPopup(str);
+                                                //      }});
+                                                  //    geojsonLayer.addTo(mymap);
+
+                      </script>
+
+
 
 
 
